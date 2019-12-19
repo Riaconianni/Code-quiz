@@ -20,13 +20,14 @@ var playAgainBtnEl = document.querySelector("#play-again-btn");
   var score = 0;
   // score
   // secondsLeft
+  var secondsLeft = 0;
 // create function to start game
 startGame();
 
 function startGame() {
   var secondsLeft = 300;
 // set seconds left variable to starting time (300 seconds = 5 minutes)
-secondsLeft.textContent = timerIntervalId;
+timeLeftEl.textContent = secondsLeft;
 // write seconds left to the page
 
 // reset score to 0
