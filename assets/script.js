@@ -26,38 +26,46 @@ startGame();
 
 function startGame() {
   var secondsLeft = 300;
-// set seconds left variable to starting time (300 seconds = 5 minutes)
+  // set seconds left variable to starting time (300 seconds = 5 minutes)
 timeLeftEl.textContent = secondsLeft;
-// write seconds left to the page
-
-// reset score to 0
-}
-
+  // write seconds left to the page
+userScoreEl.value = userScoreEl.defaultValue;
+  // reset score to 0
+};
   // write score to the page (optional)
+  startGameBtnEl.addEventListener("click", function(event) {
+  var element = event.target;
 
-  // hide start-screen element && post-game-screen
-  // show quiz-content element
-
-  // display first question
-  displayQuestions(0);
-
-//   // set timer interval to setInterval function that decrements secondsLeft every second
-  timerIntervalId = setInterval(function() {
+  if (element.matches("button") === true) {
+  startScreenEl.setAttribute("class", "hide");
+    // hide start-screen element && post-game-screen
+  quizContentEl.getAttribute("class");
+   // show quiz-content element
+}
+   // display first question
+   displayQuestions(0);
+});
+// set timer interval to setInterval function that decrements secondsLeft every second
+  var timerIntervalId = setInterval(function() {
     secondsLeft--;
-    if (secondsLeft <= 0) {
+    if (secondsLeft === 0) {
+      clearInterval(timeInterval);
       stopGame()
     }
   }, 1000);
 // create function to display a question and possible choices
-function displayQuestions(questionIndex) {
+function displayQuestions() {
+  var questionsArr = Math.floor(Math.random() * questions.length);
+  var questionIndex = questionsArr.length;
 // check if questionIndex in questions array doesn't exist
   if (!questions[questionIndex]) {
 // stop game weve hit the last question
     return stopGame();
-  }
+  };
+  // initialize question text variable
+quizContentEl.textContent = questions[questionIndex];
 };
-// initialize question text variable
-quizContentEl.textContent = (questions[questionIndex]);
+
   // get questions[questionIndex]
   quizContentEl.getAttribute(questions[questionIndex]);
   // print question to the page
@@ -66,7 +74,6 @@ quizContentEl.textContent = (questions[questionIndex]);
   quizContentEl.setAttribute("data-index", [questionIndex]);
   // loop through choices and print out choices to the page (make them buttons)
   for (var i = 0; i > questions.length; i++)
-// }
 
 // create function to handle user's answering
   // use event delegation to make sure button was clicked
