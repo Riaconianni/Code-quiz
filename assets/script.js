@@ -25,37 +25,28 @@ var playAgainBtnEl = document.querySelector("#play-again-btn");
   var answer2BtnEl;
   var answer3BtnEl;
   var answer4BtnEl;
-// create function to start game
-startGame();
 
+// create function to start game
 function startGame() {
   var secondsLeft = 300;
   // set seconds left variable to starting time (300 seconds = 5 minutes)
-timeLeftEl.textContent = secondsLeft;
+  timeLeftEl.textContent = secondsLeft;
   // write seconds left to the page
-userScoreEl.value = userScoreEl.defaultValue;
+  userScoreEl.value = userScoreEl.defaultValue;
   // reset score to 0
   // write score to the page (optional)
-  startGameBtnEl.addEventListener("click", function(event) {
-    var element = event.target;
-    if (element.matches("button") === true) {
-    startScreenEl.setAttribute("class", "hide");
-      // hide start-screen element && post-game-screen
-    quizContentEl.getAttribute("class");
-    };
-
-  });
-}
-   // display first question
-   displayQuestions(0);
-// set timer interval to setInterval function that decrements secondsLeft every second
+  // set timer interval to setInterval function that decrements secondsLeft every second
   var timerIntervalId = setInterval(function() {
     secondsLeft--;
     if (secondsLeft === 0) {
       clearInterval(timeInterval);
-      stopGame()
+      stopGame();
     }
   }, 1000);
+
+  // display first question
+  displayQuestions(0);
+}
 
 // create function to display a question and possible choices
 function displayQuestions(questionIndex) {
@@ -72,13 +63,13 @@ function displayQuestions(questionIndex) {
   containerEl.setAttribute("data-question-index", questionIndex);
   	// initialize question text variable
 
-// get questions[questionIndex]
-  // print question to the page
-  // use data attribute to know which index the question is
-  // loop through choices and print out choices to the page (make them buttons)
-for (var i = 0; i > currentQuestions.choices[i]; i++) {
-  console.log("hi");
-}
+  // get questions[questionIndex]
+    // print question to the page
+    // use data attribute to know which index the question is
+    // loop through choices and print out choices to the page (make them buttons)
+  for (var i = 0; i > currentQuestions.choices[i]; i++) {
+    console.log("hi");
+  }
 
 };
 
@@ -94,19 +85,33 @@ for (var i = 0; i > currentQuestions.choices[i]; i++) {
 
   function stopGame() {
     
-  }
+  };
+
 // create a function to stop the game (answering all the questions or time has run out)
   // clearInterval() to stop the timer
   // hide quiz-content element
   // show post-game-screen
   // print out user score
 
-// add event listeners
   // start game button (for starting the game)
+  
+  startGameBtnEl.addEventListener("click", function(event) {
+    var element = event.target;
+    if (element.matches("button") === true) {
+      startScreenEl.setAttribute("class", "hide");
+      // hide start-screen element && post-game-screen
+      quizContentEl.getAttribute("class");
+      startGame();
+    };
+
+  });
+
+// add event listeners
   startGameBtnEl.addEventListener("click", startGame);
   // quiz content (event delegation) - answering a question in the game
   quizContentEl.addEventListener("click", function(event) {
     event.preventDefault();
   });
+
   // play again button
 playAgainBtnEl.addEventListener("click", playAgain);
