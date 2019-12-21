@@ -13,18 +13,19 @@ var userScoreEl = document.querySelector("#user-score");
 // user-score
 var playAgainBtnEl = document.querySelector("#play-again-btn");
 // play again-btn
+var currentQuestionIndex = 0;
 
 // create variables for game logic
-  var timerIntervalId = 0;
-  // timerIntervalId
-  var score = 0;
-  // score
-  // secondsLeft
-  var secondsLeft = 0;
-  var answer1BtnEl;
-  var answer2BtnEl;
-  var answer3BtnEl;
-  var answer4BtnEl;
+var timerIntervalId = 0;
+// timerIntervalId
+var score = 0;
+// score
+// secondsLeft
+var secondsLeft = 0;
+var answer1BtnEl;
+var answer2BtnEl;
+var answer3BtnEl;
+var answer4BtnEl;
 
 // create function to start game
 function startGame() {
@@ -55,63 +56,72 @@ function displayQuestions(questionIndex) {
     return stopGame();
     // stop game weve hit the last question
   }
-
   var currentQuestion = questions[questionIndex];
+  var titleEl = document.getElementById("question-title");
+  titleEl.textContent = currentQuestion.questions;
 
-  var containerEl = document.createElement("div");
-  containerEl.questions.add("card");
-  containerEl.setAttribute("data-question-index", questionIndex);
-  	// initialize question text variable
+  // initialize question text variable
 
   // get questions[questionIndex]
-    // print question to the page
-    // use data attribute to know which index the question is
-    // loop through choices and print out choices to the page (make them buttons)
-  for (var i = 0; i > currentQuestions.choices[i]; i++) {
-    console.log("hi");
+  // print question to the page
+  // use data attribute to know which index the question is
+  // loop through choices and print out choices to the page (make them buttons)
+  var choicesEl = document.getElementById("choices");
+  choicesEl.innerHTML = "";
+  currentQuestion.choices.forEach(function(choice, i) {
+    var choiceButton = document.createElement("button");
+    choiceButton.setAttribute("value", choice);
+    choiceButton.textContent = i + 1 + ". " + choice;
+    choiceButton.onclick = questionClick;
+    choicesEl.appendChild(choiceButton);
+  });
+}
+
+function questionClick() {
+  if (this.value !== questions[currentQuestionIndex].answer) {
+    alert("Wrong answer!");
+  } else {
+    alert("Your Right!");
   }
-
-};
-
+  currentQuestionIndex++;
+  displayQuestions(currentQuestionIndex);
+}
 // create function to handle user's answering
-  // use event delegation to make sure button was clicked
-  // read data attribute of what question we answered (index)
-  // check to see if choice picked is same as questions correct answer
-  // if yes, increase score++
-  // if no, subract time from secondsLeft
+// use event delegation to make sure button was clicked
+// read data attribute of what question we answered (index)
+// check to see if choice picked is same as questions correct answer
+// if yes, increase score++
+// if no, subract time from secondsLeft
 
-  // get index of next question (this questions index +1)
-  // run displayQuestion(nextQuestionIndex)
+// get index of next question (this questions index +1)
+// run displayQuestion(nextQuestionIndex)
 
-  function stopGame() {
-    
-  };
+function stopGame() {}
 
 // create a function to stop the game (answering all the questions or time has run out)
-  // clearInterval() to stop the timer
-  // hide quiz-content element
-  // show post-game-screen
-  // print out user score
+// clearInterval() to stop the timer
+// hide quiz-content element
+// show post-game-screen
+// print out user score
 
-  // start game button (for starting the game)
-  
-  startGameBtnEl.addEventListener("click", function(event) {
-    var element = event.target;
-    if (element.matches("button") === true) {
-      startScreenEl.setAttribute("class", "hide");
-      // hide start-screen element && post-game-screen
-      quizContentEl.getAttribute("class");
-      startGame();
-    };
+// start game button (for starting the game)
 
-  });
+startGameBtnEl.addEventListener("click", function(event) {
+  var element = event.target;
+  if (element.matches("button") === true) {
+    startScreenEl.setAttribute("class", "hide");
+    // hide start-screen element && post-game-screen
+    quizContentEl.getAttribute("class");
+    startGame();
+  }
+});
 
 // add event listeners
-  startGameBtnEl.addEventListener("click", startGame);
-  // quiz content (event delegation) - answering a question in the game
-  quizContentEl.addEventListener("click", function(event) {
-    event.preventDefault();
-  });
+startGameBtnEl.addEventListener("click", startGame);
+// quiz content (event delegation) - answering a question in the game
+quizContentEl.addEventListener("click", function(event) {
+  event.preventDefault();
+});
 
-  // play again button
+// play again button
 playAgainBtnEl.addEventListener("click", playAgain);
