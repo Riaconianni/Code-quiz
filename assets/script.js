@@ -16,34 +16,39 @@ var playAgainBtnEl = document.querySelector("#play-again-btn");
 var currentQuestionIndex = 0;
 
 // create variables for game logic
-var timerIntervalId = 0;
+var timerIntervalId;
 // timerIntervalId
 var score = 0;
+
 // score
 // secondsLeft
-var secondsLeft = 0;
-var answer1BtnEl;
-var answer2BtnEl;
-var answer3BtnEl;
-var answer4BtnEl;
+var secondsLeft = questions.length * 10;
+var intervalRunning = false
 
 // create function to start game
 function startGame() {
-  var secondsLeft = 300;
+  secondsLeft = questions.length * 10;
   // set seconds left variable to starting time (300 seconds = 5 minutes)
   timeLeftEl.textContent = secondsLeft;
   // write seconds left to the page
   userScoreEl.value = userScoreEl.defaultValue;
+  
   // reset score to 0
   // write score to the page (optional)
   // set timer interval to setInterval function that decrements secondsLeft every second
-  var timerIntervalId = setInterval(function() {
-    secondsLeft--;
-    if (secondsLeft === 0) {
-      clearInterval(timeInterval);
-      stopGame();
-    }
-  }, 1000);
+  if (!intervalRunning) {
+    intervalRunning = true;
+    timerIntervalId = setInterval(function() {
+      secondsLeft--;
+      timeLeftEl.textContent = secondsLeft
+      console.log(secondsLeft)
+      if (secondsLeft === 0) {
+        
+        stopGame();
+      }
+    }, 1000);
+  }
+ 
 
   // display first question
   displayQuestions(0);
@@ -53,19 +58,16 @@ function startGame() {
 function displayQuestions(questionIndex) {
   if (questionIndex === questions.length) {
     // check if questionIndex in questions array doesn't exist
+    console.log('hi')
     return stopGame();
     // stop game weve hit the last question
   }
   var currentQuestion = questions[questionIndex];
-  var titleEl = document.getElementById("question-title");
-  titleEl.textContent = currentQuestion.questions;
-
   // initialize question text variable
-
+  var titleEl = document.getElementById("question-title");
   // get questions[questionIndex]
-  // print question to the page
-  // use data attribute to know which index the question is
-  // loop through choices and print out choices to the page (make them buttons)
+  titleEl.textContent = currentQuestion.questions;
+ // print question to the page
   var choicesEl = document.getElementById("choices");
   choicesEl.innerHTML = "";
   currentQuestion.choices.forEach(function(choice, i) {
@@ -75,13 +77,15 @@ function displayQuestions(questionIndex) {
     choiceButton.onclick = questionClick;
     choicesEl.appendChild(choiceButton);
   });
+  // loop through choices and print out choices to the page (make them buttons)
 }
 
 function questionClick() {
   if (this.value !== questions[currentQuestionIndex].answer) {
-    alert("Wrong answer!");
+    alert("Wrong Answer!");
   } else {
-    alert("Your Right!");
+    alert("You're Right!");
+    score++;
   }
   currentQuestionIndex++;
   displayQuestions(currentQuestionIndex);
@@ -92,18 +96,29 @@ function questionClick() {
 // check to see if choice picked is same as questions correct answer
 // if yes, increase score++
 // if no, subract time from secondsLeft
-
 // get index of next question (this questions index +1)
 // run displayQuestion(nextQuestionIndex)
 
-function stopGame() {}
+function stopGame() {
+console.log("stopGame");
+intervalRunning = false;
+clearInterval(timerIntervalId)
+  quizContentEl.setAttribute("class", "hide");
+  postGameEl.removeAttribute("class");
+  userScoreEl.textContent = score;
+}
 
 // create a function to stop the game (answering all the questions or time has run out)
 // clearInterval() to stop the timer
 // hide quiz-content element
 // show post-game-screen
 // print out user score
+function playAgain() {
+  postGameEl.setAttribute("class", "hide");
+  quizContentEl.removeAttribute("class");
 
+  startGame();
+}
 // start game button (for starting the game)
 
 startGameBtnEl.addEventListener("click", function(event) {
@@ -111,7 +126,7 @@ startGameBtnEl.addEventListener("click", function(event) {
   if (element.matches("button") === true) {
     startScreenEl.setAttribute("class", "hide");
     // hide start-screen element && post-game-screen
-    quizContentEl.getAttribute("class");
+    quizContentEl.removeAttribute("class");
     startGame();
   }
 });
@@ -122,6 +137,5 @@ startGameBtnEl.addEventListener("click", startGame);
 quizContentEl.addEventListener("click", function(event) {
   event.preventDefault();
 });
-
 // play again button
 playAgainBtnEl.addEventListener("click", playAgain);
