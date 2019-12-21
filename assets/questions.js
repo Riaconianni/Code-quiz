@@ -59,4 +59,4 @@ var questions = [
     choices: ["It makes their code look cool", "Code won't run without it", "It helps coders determine what the code is doing", "It determines if a value is true or false"],
     answer: "It helps coders determine what the code is doing"
   }
-  ]
+  ];

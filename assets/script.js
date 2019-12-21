@@ -21,6 +21,10 @@ var playAgainBtnEl = document.querySelector("#play-again-btn");
   // score
   // secondsLeft
   var secondsLeft = 0;
+  var answer1BtnEl;
+  var answer2BtnEl;
+  var answer3BtnEl;
+  var answer4BtnEl;
 // create function to start game
 startGame();
 
@@ -31,20 +35,19 @@ timeLeftEl.textContent = secondsLeft;
   // write seconds left to the page
 userScoreEl.value = userScoreEl.defaultValue;
   // reset score to 0
-};
   // write score to the page (optional)
   startGameBtnEl.addEventListener("click", function(event) {
-  var element = event.target;
+    var element = event.target;
+    if (element.matches("button") === true) {
+    startScreenEl.setAttribute("class", "hide");
+      // hide start-screen element && post-game-screen
+    quizContentEl.getAttribute("class");
+    };
 
-  if (element.matches("button") === true) {
-  startScreenEl.setAttribute("class", "hide");
-    // hide start-screen element && post-game-screen
-  quizContentEl.getAttribute("class");
-   // show quiz-content element
+  });
 }
    // display first question
    displayQuestions(0);
-});
 // set timer interval to setInterval function that decrements secondsLeft every second
   var timerIntervalId = setInterval(function() {
     secondsLeft--;
@@ -53,27 +56,31 @@ userScoreEl.value = userScoreEl.defaultValue;
       stopGame()
     }
   }, 1000);
-// create function to display a question and possible choices
-function displayQuestions() {
-  var questionsArr = Math.floor(Math.random() * questions.length);
-  var questionIndex = questionsArr.length;
-// check if questionIndex in questions array doesn't exist
-  if (!questions[questionIndex]) {
-// stop game weve hit the last question
-    return stopGame();
-  };
-  // initialize question text variable
-quizContentEl.textContent = questions[questionIndex];
-};
 
-  // get questions[questionIndex]
-  quizContentEl.getAttribute(questions[questionIndex]);
+// create function to display a question and possible choices
+function displayQuestions(questionIndex) {
+  if (questionIndex === questions.length) {
+    // check if questionIndex in questions array doesn't exist
+    return stopGame();
+    // stop game weve hit the last question
+  }
+
+  var currentQuestion = questions[questionIndex];
+
+  var containerEl = document.createElement("div");
+  containerEl.questions.add("card");
+  containerEl.setAttribute("data-question-index", questionIndex);
+  	// initialize question text variable
+
+// get questions[questionIndex]
   // print question to the page
-  quizContentEl.append(questions[questionIndex]);
   // use data attribute to know which index the question is
-  quizContentEl.setAttribute("data-index", [questionIndex]);
   // loop through choices and print out choices to the page (make them buttons)
-  for (var i = 0; i > questions.length; i++)
+for (var i = 0; i > currentQuestions.choices[i]; i++) {
+  console.log("hi");
+}
+
+};
 
 // create function to handle user's answering
   // use event delegation to make sure button was clicked
@@ -85,6 +92,9 @@ quizContentEl.textContent = questions[questionIndex];
   // get index of next question (this questions index +1)
   // run displayQuestion(nextQuestionIndex)
 
+  function stopGame() {
+    
+  }
 // create a function to stop the game (answering all the questions or time has run out)
   // clearInterval() to stop the timer
   // hide quiz-content element
