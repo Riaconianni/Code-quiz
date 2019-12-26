@@ -58,7 +58,6 @@ function startGame() {
 function displayQuestions(questionIndex) {
   if (questionIndex === questions.length) {
     // check if questionIndex in questions array doesn't exist
-    console.log('hi')
     return stopGame();
     // stop game weve hit the last question
   }
