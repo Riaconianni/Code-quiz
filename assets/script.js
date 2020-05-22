@@ -114,7 +114,7 @@ clearInterval(timerIntervalId)
 // print out user score
 function playAgain() {
   postGameEl.setAttribute("class", "hide");
-  quizContentEl.removeAttribute("class");
+  startScreenEl.removeAttribute("class");
 
   startGame();
 }
