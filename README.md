@@ -2,8 +2,21 @@
 
 https://riaconianni.github.io/Code-quiz/
 
-12 question code quiz using HTML, CSS, Bootstrap, and JavaScript
+12 question code quiz
 
-## Start page
+## Technologies Used
 
-![Image of Start Page](assets/images/Start.JPG)
+HTML, CSS, Bootstrap, and JavaScript
+
+## Start page of the Code Quiz
+
+![Example of Start Page](assets/images/Start.JPG)
+
+## Quiz Content
+
+![Example of Quiz Content](assets/images/Question.JPG)
+
+## End page of the Code Quiz
+
+![Example of End Page](assets/images/End.JPG)
+
