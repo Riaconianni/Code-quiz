@@ -6,4 +6,4 @@ https://riaconianni.github.io/Code-quiz/
 
 ## Start page
 
-![Image of Start Page](https://assets/images/Start.JPG)
+![Image of Start Page](assets/images/Start.JPG)
